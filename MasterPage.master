@@ -1,0 +1,148 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1">
+
+
+    <link href="../Kid's Wear/StyleSheet.css" rel="stylesheet" />
+
+    <title>Kid's Wear</title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+
+    <div>
+        <style>
+            ul {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 50px;
+                text-align: center;
+                margin: 10px;
+                padding: 0;
+                overflow: hidden;
+                position: static;
+                background-color: black;
+            }
+
+            li {
+                margin: 6px;
+                font-size: 15px;
+                list-style: none;
+                float: left;
+            }
+
+                li a {
+                    display: block;
+                    color: white;
+                    text-align: center;
+                    padding: 14px 16px;
+                    text-decoration: none;
+                }
+
+                li :hover {
+                    box-sizing: padding-box;
+                    background-color: deepskyblue;
+                }
+        </style>
+</head>
+
+<body>
+
+    <div>
+        <div style="height: 100px;">
+            <div class="banner">
+                <h1 class="header"><span class="title">&nbsp;K </span>id's Wear</h1>
+            </div>
+        </div>
+
+        <div>
+            <div>
+                <form>
+                    <ul>
+                        <li><a href="index.aspx" style="color: #FFFFFF">Home</a></li>
+
+
+
+                        <li>
+                            <div class="dropdown">
+                                <button class="dropbtn">Boys</button>
+                                <div class="dropdown-content">
+                                    <asp:DataList ID="DataList1" runat="server" CssClass="dtlist" AlternatingItemStyle-HorizontalAlign="Center" DataSourceID="SqlDataSource1" DataKeyField="cat_id">
+
+                                        <AlternatingItemStyle HorizontalAlign="Center"></AlternatingItemStyle>
+                                        <ItemTemplate>
+                                            <a href='product.aspx?cat=<%# Eval("cat_id") %>&sub=<%# Eval("sub_id") %>' class="item"><%# Eval("sub_name") %></a>
+                                        </ItemTemplate>
+                                    </asp:DataList>
+
+
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="dropdown">
+                                <button class="dropbtn">Girls</button>
+                                <div class="dropdown-content">
+                                    <asp:DataList ID="DataList2" runat="server" AlternatingItemStyle-HorizontalAlign="Center" DataSourceID="SqlDataSource2" DataKeyField="cat_id">
+
+                                        <AlternatingItemStyle HorizontalAlign="Center"></AlternatingItemStyle>
+                                        <ItemTemplate>
+                                            <a href='product.aspx?cat=<%# Eval("cat_id") %>&sub=<%# Eval("sub_id") %>' class="item"><%# Eval("sub_name") %></a>
+                                        </ItemTemplate>
+                                    </asp:DataList>
+
+
+                                </div>
+                            </div>
+                        </li>
+
+                        <li><a href="about_us.aspx" style="color: #FFFFFF">About</a></li>
+                        <li><a href="show_contact.aspx" style="color: #FFFFFF">Contact</a></li>
+                        <li><a href="profile.aspx" style="color: #FFFFFF">Profile</a></li>
+                        <li><a href="add_to_cart.aspx" style="color: #FFFFFF">My Cart  [ <% Response.Write(Session["count"]); %> ]</a></li>
+                        <li><a href="order.aspx" style="color: #FFFFFF">My Order</a></li>
+
+                        <%
+                            if (Session["user"] == null)
+                            { %>
+                        <li><a href="login.aspx" style="color: #FFFFFF">User Login</a></li>
+                        <%  }
+
+                            else
+                            { %>
+                        <li><a href="logout.aspx" style="color: #FFFFFF">Log Out</a></li>
+                        <% }
+                
+                        %>
+
+                        <%
+                            if (Session["user"] == null)
+                            { %>
+                        <li><a href="admin\admin_login.aspx" style="color: #FFFFFF">Admin Login</a></li>
+                        <%  }
+                            %>
+                        
+                    </ul>
+                </form>
+            </div>
+        </div>
+    </div>
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:DB_KGConnectionString %>" SelectCommand="SELECT [sub_id], [cat_id], [sub_name] FROM [sub_cat] where cat_id=1"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:DB_KGConnectionString %>" SelectCommand="SELECT [sub_id], [cat_id], [sub_name] FROM [sub_cat] where cat_id=2"></asp:SqlDataSource>
+
+    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+    </asp:ContentPlaceHolder>
+
+
+
+    <div>
+        <p class="footer">© 2023 Kid's Wear. All Rights Reserved</p>
+    </div>
+
+
+
+
+</body>
+</html>

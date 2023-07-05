@@ -1,0 +1,96 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="admin_master.master.cs" Inherits="MasterPage" %>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+
+
+
+    <link href="../../Kid's Wear/StyleSheet.css" rel="stylesheet" />
+
+    <title>Kid's Wear</title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <style>
+        ul {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 50px;
+            text-align: center;
+            margin: 10px;
+            padding: 0;
+            overflow: hidden;
+            background-color: black;
+        }
+
+        li {
+            margin: 6px;
+            font-size: 15px;
+            list-style: none;
+            float: left;
+        }
+
+            li a {
+                display: block;
+                color: white;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+
+            li :hover {
+                box-sizing: padding-box;
+                background-color: deepskyblue;
+            }
+    </style>
+</head>
+
+<body>
+
+
+    <div style="height: 100px">
+        <div class="banner">
+            <h1 class="header"><span class="title">&nbsp;K </span>id's Wear</h1>
+        </div>
+    </div>
+
+    <div>
+        <div>
+            <ul>
+                <li><a href="users.aspx" class="nav">Users</a></li>
+                <li><a href="add_product.aspx" class="nav">Add Product</a></li>
+                <li><a href="show_product.aspx" class="nav">Show Product</a></li>
+                <li><a href="add_cat.aspx" class="nav">Add Category</a></li>
+                <li><a href="show_order.aspx" class="nav">Show Order</a></li>
+
+                <%
+                    if (Session["admin"] == null)
+                    { %>
+                <li><a href="admin_login.aspx" style="color: #FFFFFF">Login</a></li>
+                <%  }
+
+                else
+                { %>
+                <li><a href="admin_logout.aspx" style="color: #FFFFFF">Log Out</a></li>
+                <% }
+                
+                %>
+            </ul>
+        </div>
+    </div>
+    </div>
+    <div>
+
+
+
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        </asp:ContentPlaceHolder>
+
+
+
+        <div>
+            <p class="footer">© 2023 Kid's Wear. All Rights Reserved</p>
+        </div>
+</body>
+</html>
